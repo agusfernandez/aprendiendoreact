@@ -15,6 +15,14 @@ function App() {
 
   /*le pasamos el estado inicial del tablero*/ 
   const [board, setBoard] = useState( Array(9).fill(null))
+  const [turn, setTurn] = useState(PIEZAS.X)
+
+  const updateBoard = () => {
+    const newTurn = turn === PIEZAS.X ? PIEZAS.O : PIEZAS.X
+
+  } 
+
+  console.log(turn)
 
   return (
     <>
@@ -28,6 +36,7 @@ function App() {
               <Square 
                 key={index}
                 index={index}
+                updateBoard={updateBoard}
               >
                 {index}
               </Square>
@@ -35,6 +44,14 @@ function App() {
         })
         }
 
+        </section>
+        <section className="turn">
+          <Square isSelected={turn === PIEZAS.X}>
+            {PIEZAS.X}
+          </Square>
+          <Square isSelected={turn === PIEZAS.O}>
+            {PIEZAS.O}
+          </Square>
         </section>
       </main>
     </>

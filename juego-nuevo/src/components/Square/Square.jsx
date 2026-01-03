@@ -1,8 +1,12 @@
 
-const Square = ({children, updateBoard, index}) => {
+const Square = ({children, isSelected, updateBoard, index}) => {
+    const className = `square ${isSelected ? 'is-selected' : ''}`
+    const handleClick = () => {
+        updateBoard()
+    }
     return (
       <>
-        <div className="square">
+        <div className={className} onClick={handleClick}>
           {children}
         </div>
       </>

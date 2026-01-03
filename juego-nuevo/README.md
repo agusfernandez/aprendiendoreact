@@ -73,3 +73,39 @@ console.log(board)
 const [boardState, setBoardState] = useState(board)
 ´´´
 5) crear el estado para saber de quien es el turno y visualmente debemos saber quien tiene el turno
+-> creo el estado del turn y le paso como elemento inicial la X -> piezas.x
+-> para dejar una pista para saber a quien le toca jugar: hago una section nueva y agrego
+```
+  <section className="turn">
+        <Square isSelected={turn === PIEZAS.X}>
+            {PIEZAS.X}
+        </Square>
+        <Square isSelected={turn === PIEZAS.O}>
+            {PIEZAS.O}
+        </Square>
+   </section>
+
+```
+-> luego en el componente Square -> agrego el isSelected y paso la constante del className para que me tome si esta seleccioando o no
+
+
+
+```
+const Square = ({children, isSelected, updateBoard, index}) => {
+    const className = `square ${isSelected ? 'is-selected' : ''}`
+    return (
+      <>
+        <div className={className}>
+          {children}
+        </div>
+      </>
+    );
+
+}
+```
+
+6) updateBoard 
+-creamos dentro de App.jsx el const updateBoard o la funcion y le pasamos la  la funcion al Square (no la ejecucion)  para que dentro del square se termine ejecutando
+-se ejecuta el updateBoard -> en el btn del onClick
+
+7) cambiar el turno
