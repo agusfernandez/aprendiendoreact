@@ -67,6 +67,13 @@ function App() {
     }
   }
 
+  // funcion para reiniciar el juego
+  const resetGame = () => {
+    setBoard(Array(9).fill(null))
+    setTurn(PIEZAS.X)
+    setWinner(null)
+  }
+
   return (
     <>
       <main className="board">
@@ -97,6 +104,33 @@ function App() {
             {PIEZAS.O}
           </Square>
         </section>
+
+        {
+          winner !== null && (
+            <section className="winner">
+              <div className="text">
+                {
+                  winner === false ? (
+                    <h2>
+                      Empate
+                    </h2>
+                  ) : (
+                    <h2>
+                      Gano
+                    </h2>
+                  )
+                }
+
+                <header>{winner && <Square>{winner}</Square>}</header>
+                <button onClick={resetGame}>
+                  Empezar de nuevo
+                </button>
+
+              </div>
+            </section>
+          )
+
+        }
       </main>
     </>
   )

@@ -248,3 +248,68 @@ Dentro de la funcion de upadateBoard
  if(board[index] || winner) return
 
  ```
+
+
+11) Notificar como salio el juego
+vamos a crear una section para que imprima con un modal (estilos) para qie pueda ver al ganador y un boton para reiniciar el juego
+
+Si winner es distinto a null  (porque null es por defecto y no tenemos winner).  Dentro diremos si el winner es false => empate
+
+
+```
+
+  {
+          winner !== null && (
+            <section className="winner">
+              <div className="text">
+                {
+                  winner === false ? (
+                    <h2>
+                      Empate
+                    </h2>
+                  ) : (
+                    <h2>
+                      Gano
+                    </h2>
+                  )
+                }
+                <!--te muestra el ganador-->    
+                <header>{winner && <Square>{winner}</Square>}</header>
+                <button>
+                  Empezar de nuevo
+                </button>
+
+              </div>
+            </section>
+          )
+
+        }
+
+
+
+```
+
+12) Reiniciar el juego
+
+resetGame function
+primero hay que volver al estado inicial
+ese estado es el que definimos al pp
+
+  
+const [board, setBoard] = useState( Array(9).fill(null))
+setBoard(Array(9).fill(null)) -> este
+
+const [turn, setTurn] = useState(PIEZAS.X)
+setBoard((PIEZAS.X)) -> este
+
+const [winner, setWinner] = useState(null)
+setWinner(null)
+
+````
+    const resetGame = () => {
+        setBoard(Array(9).fill(null))
+        setTurn(PIEZAS.X)
+        setWinner(null)
+    }
+
+````
