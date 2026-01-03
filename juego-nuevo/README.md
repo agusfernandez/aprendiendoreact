@@ -72,7 +72,11 @@ const board = Array(9).fill(null)
 console.log(board)
 const [boardState, setBoardState] = useState(board)
 ´´´
-5) crear el estado para saber de quien es el turno y visualmente debemos saber quien tiene el turno
+
+{board[index]} -> actualizar el board con el. index
+
+
+6) crear el estado para saber de quien es el turno y visualmente debemos saber quien tiene el turno
 -> creo el estado del turn y le paso como elemento inicial la X -> piezas.x
 -> para dejar una pista para saber a quien le toca jugar: hago una section nueva y agrego
 ```
@@ -104,8 +108,143 @@ const Square = ({children, isSelected, updateBoard, index}) => {
 }
 ```
 
-6) updateBoard 
+7) updateBoard 
 -creamos dentro de App.jsx el const updateBoard o la funcion y le pasamos la  la funcion al Square (no la ejecucion)  para que dentro del square se termine ejecutando
+Porque se pasa la funcion y no la ejecucion?
+se ejecutan 9 veces sino lo que queres q se ejecute solo si se da el click (sino se actualiza) / ejecutarlo cuando lo necesito
 -se ejecuta el updateBoard -> en el btn del onClick
+-al hacer click sobre algun cuadrado de la grilla -> va cambiando el turno
 
-7) cambiar el turno
+
+```
+const Square = ({children, isSelected, updateBoard, index}) => {
+    const className = `square ${isSelected ? 'is-selected' : ''}`
+    const handleClick = () => {
+        updateBoard()
+    }
+    return (
+      <>
+        <div className={className} onClick={handleClick}>
+          {children}
+        </div>
+      </>
+    );
+
+}
+
+```
+
+```
+  const updateBoard = () => {
+    const newTurn = turn === PIEZAS.X ? PIEZAS.O : PIEZAS.X
+    setTurn(newTurn)
+
+  } 
+
+    {
+            board.map((_, index) => {
+            console.log('board' +index)
+            return (
+              <Square 
+                key={index}
+                index={index}
+                updateBoard={updateBoard}
+              >
+                {board[index]}
+
+              </Square>
+            )
+        })
+    }
+
+```
+
+
+8) al updateBoard le pasamos el index para que sepa en que posicion se hizo el click
+
+9) ahora se puede cambiar el el valor o donde clicquee y para evitar eso y que sea eterno _
+
+```
+  const updateBoard = (index) => {
+    if(board[index]) return /*si ya hay algo en esa posicion, no hacer nada*/
+
+    /*ACTUALIZAR EL BORD */
+    const newBoard = [...board]
+    newBoard[index] = turn
+    setBoard(newBoard)
+
+    /*CAMBIAR EL TURNO */
+    const newTurn = turn === PIEZAS.X ? PIEZAS.O : PIEZAS.X
+    setTurn(newTurn)
+
+  } 
+
+```
+
+10) como hago para ganer el juego?== osea si completo la linea antes apra ganar?
+
+con un estado 
+const [winner, setWinner] = useState(null) /*null es que no hay ganador, false es que hay empate*/
+
+- creo los sets que ganarian usando la posicion 
+```
+const winnerCombos = [
+    [0,1,2],
+    [3,4,5],
+    [6,7,8],
+    [0,3,6],
+    [1,4,7],
+    [2,5,8],
+    [0,4,8],
+    [2,4,6],
+]
+```
+
+ - chequear quien es el ganador
+
+hago un for de winnerCombos ya que tengo q chquear cual es la combinacion ganadora
+
+```
+
+  const checkWinner = (boardToCheck) => {
+    /*revisar todas las combinaciones ganadoras*/
+
+    for (const combo of WINNER_COMBOS){
+        const [a,b,c] = combo
+        if(
+            boardToCheck[a] &&
+            boardToCheck[a] === boardToCheck[b] &&
+            boardToCheck[a] === boardToCheck[c]
+        ){
+            return boardToCheck[a]
+        }
+  }
+    /*si no hay ganador*/
+    return null
+  }
+
+  ```
+
+- Ahora donde se cheque q hay un ganador?
+
+Dentro de la funcion de upadateBoard
+
+```
+/*REVISAR SI HAY GANADOR */
+    const newWinner = checkWinner(newBoard) -> hay que chequearlo con le ultimo tablero
+    if (newWinner){
+        setWinner(newWinner)  
+    } else if (!newBoard.includes(null)){
+        setWinner(false) /*empate*/ 
+        }
+
+
+```
+
+- Hay que asegurarse que cuando se gana termina el juego
+
+```
+
+ if(board[index] || winner) return
+
+ ```
