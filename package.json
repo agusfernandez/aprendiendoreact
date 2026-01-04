@@ -16,5 +16,8 @@
     "url": "https://github.com/agusfernandez/aprendiendoreact/issues"
   },
   "homepage": "https://github.com/agusfernandez/aprendiendoreact#readme",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "standard": "^17.1.2"
+  }
 }
