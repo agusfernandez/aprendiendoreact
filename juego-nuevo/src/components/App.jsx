@@ -1,8 +1,9 @@
-import { useState } from "react"
+import { useState , useEffect } from "react"
 import confetti from "canvas-confetti"
 import { PIEZAS } from "../constants/constants"
 import WinnerModal from "./WinnerModal/WinnerModal"
 import { checkWinner, checkTide } from "../logic/logic"
+import { saveGameToStorage, resetGameStorage  } from "../storage/storage"
 import Table from "./Table/Table"
 import Turn from "./Turn/Turn"
 import ResetGame from "./ResetGame/ResetGame"
@@ -20,7 +21,6 @@ function App() {
   const [winner, setWinner] = useState(null) /*null es que no hay ganador, false es que hay empate*/
   
 
-
   const updateBoard = (index) => {
     if(board[index] || winner) return /*si ya hay algo en esa posicion, no hacer nada*/
 
@@ -34,8 +34,10 @@ function App() {
     setTurn(newTurn)
 
     /*GUARDAR LA PARTIDA */
-    window.localStorage.setItem('board', JSON.stringify(newBoard))
-    window.localStorage.setItem('turn', newTurn)
+    saveGameToStorage({
+      board: newBoard,
+      turn: newTurn
+    } )
 
     /*REVISAR SI HAY GANADOR */
     const newWinner = checkWinner(newBoard) 
@@ -53,8 +55,7 @@ function App() {
     setTurn(PIEZAS.X)
     setWinner(null)
 
-    window.localStorage.removeItem('board')
-    window.localStorage.removeItem('turn')
+    resetGameStorage()
   }
 
   return (

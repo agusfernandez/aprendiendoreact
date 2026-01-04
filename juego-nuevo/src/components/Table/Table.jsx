@@ -6,7 +6,6 @@ const Table = ({board , updateBoard}) => {
         <section className="game">
           {
             board.map((_, index) => {
-            console.log('board' +index)
             return (
             <>
               <Square 

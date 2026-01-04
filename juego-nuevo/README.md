@@ -404,4 +404,5 @@ Ademas cuando se resetea el juego se debe sacar el localStorage
 ```
 
 
-16) 
+16) useEffect
+ejemplo guardar la partida
