@@ -370,6 +370,8 @@ osea si pongo el array directamente sin trasnformarlo lo que hace es vonvertir t
 NUnca los hooks deben ir dentro de una funcion
 para ello debo agregar el valor del lcoal storage dentro del estado osea si existe un registro de localStorage entonces que me inice el juego ahi sino con el Array(9)
 
+Por ende le pasamos una funcion en donde le pasamos el localStorage y decimos si hay un localStorage pasame la posicion sino que vuelva a empezar o el valor por defecto
+
 ```
   /*le pasamos el estado inicial del tablero*/ 
   const [board, setBoard] = useState( () => {
@@ -378,3 +380,28 @@ para ello debo agregar el valor del lcoal storage dentro del estado osea si exis
   })
 
 ```
+y tambien guardo el localstorage del turno
+
+
+```
+  const [turn, setTurn] = useState(() => {
+    const storedTurn = window.localStorage.getItem('turn') -> guardar el nuevo
+    return storedTurn ? storedTurn : PIEZAS.X
+  })
+```
+
+Ademas cuando se resetea el juego se debe sacar el localStorage
+
+```
+  const resetGame = () => {
+    setBoard(Array(9).fill(null))
+    setTurn(PIEZAS.X)
+    setWinner(null)
+
+    window.localStorage.removeItem('board')
+    window.localStorage.removeItem('turn') ->
+  }
+```
+
+
+16) 

@@ -13,7 +13,10 @@ function App() {
     const storedBoard = window.localStorage.getItem('board')
     return storedBoard ? JSON.parse(storedBoard) : Array(9).fill(null)
   })
-  const [turn, setTurn] = useState(PIEZAS.X)
+  const [turn, setTurn] = useState(() => {
+    const storedTurn = window.localStorage.getItem('turn')
+    return storedTurn ? storedTurn : PIEZAS.X
+  })
   const [winner, setWinner] = useState(null) /*null es que no hay ganador, false es que hay empate*/
   
 
@@ -32,7 +35,7 @@ function App() {
 
     /*GUARDAR LA PARTIDA */
     window.localStorage.setItem('board', JSON.stringify(newBoard))
-    window.localStorage.setItem('turn', turn)
+    window.localStorage.setItem('turn', newTurn)
 
     /*REVISAR SI HAY GANADOR */
     const newWinner = checkWinner(newBoard) 
@@ -49,6 +52,9 @@ function App() {
     setBoard(Array(9).fill(null))
     setTurn(PIEZAS.X)
     setWinner(null)
+
+    window.localStorage.removeItem('board')
+    window.localStorage.removeItem('turn')
   }
 
   return (
