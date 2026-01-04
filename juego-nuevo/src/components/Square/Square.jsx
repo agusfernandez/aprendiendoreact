@@ -7,7 +7,7 @@ const Square = ({children, isSelected, updateBoard, index}) => {
     return (
       <>
         <div className={className} onClick={handleClick}>
-          {children}
+          {children}          
         </div>
       </>
     );

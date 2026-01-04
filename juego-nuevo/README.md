@@ -343,12 +343,38 @@ npm install canvas-confetti -E
 import confetti from "canvas-confetti"
 ```
 
-````
-const newWinner = checkWinner(newBoard) 
+```
+  const newWinner = checkWinner(newBoard) 
     if (newWinner){
         confetti()
         setWinner(newWinner)  
     } else if (checkTide(newBoard)){
         setWinner(false) /*empate*/ 
     }
+```
+
+
+15) Guardar los cambios de la partida del juego en el localStorage
+
+Donde hay que guardarlo? en el updateBoard antes de saber si hyay algun ganador
+-vamos a guardar en primer lugar el estado del tablero, en el localStorage podes guardar un string, si se guarda directamente el array va a guardar otra cosa y con el stringy lo puedo guardar como un string y lo puedo volver a trasbformar en un array
+osea si pongo el array directamente sin trasnformarlo lo que hace es vonvertir toods los valores en string por mas que haya un null por ejemplo
+
+```
+    window.localStorage.setItem('board', JSON.stringify(newBoard))
+    window.localStorage.setItem('turn', turn)-> guardo el turno
+
+
+```
+
+NUnca los hooks deben ir dentro de una funcion
+para ello debo agregar el valor del lcoal storage dentro del estado osea si existe un registro de localStorage entonces que me inice el juego ahi sino con el Array(9)
+
+```
+  /*le pasamos el estado inicial del tablero*/ 
+  const [board, setBoard] = useState( () => {
+    const storedBoard = window.localStorage.getItem('board')
+    return storedBoard ? JSON.parse(storedBoard) : Array(9).fill(null)
+  })
+
 ```

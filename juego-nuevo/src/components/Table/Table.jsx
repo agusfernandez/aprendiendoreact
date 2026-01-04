@@ -8,6 +8,7 @@ const Table = ({board , updateBoard}) => {
             board.map((_, index) => {
             console.log('board' +index)
             return (
+            <>
               <Square 
                 key={index}
                 index={index}
@@ -16,6 +17,8 @@ const Table = ({board , updateBoard}) => {
                
                 {board[index]}
               </Square>
+       
+            </>
             )
         })
         }
