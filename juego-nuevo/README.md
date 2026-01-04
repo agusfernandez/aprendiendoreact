@@ -342,3 +342,13 @@ npm install canvas-confetti -E
 ```
 import confetti from "canvas-confetti"
 ```
+
+````
+const newWinner = checkWinner(newBoard) 
+    if (newWinner){
+        confetti()
+        setWinner(newWinner)  
+    } else if (checkTide(newBoard)){
+        setWinner(false) /*empate*/ 
+    }
+```
