@@ -1,4 +1,4 @@
-import { useState , useEffect } from "react"
+import { useState  } from "react"
 import confetti from "canvas-confetti"
 import { PIEZAS } from "../constants/constants"
 import WinnerModal from "./WinnerModal/WinnerModal"
