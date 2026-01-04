@@ -313,3 +313,25 @@ setWinner(null)
     }
 
 ````
+
+13) Chequear si hay empate
+
+````
+  /*Chequear si hay empate */
+  const checkTide = (newBoard) => {
+    //chequear si todas las posiciones del tablero estan llenas
+    return newBoard.every( (square) => square !== null)
+  }
+
+ ```
+
+
+ ````
+ /*REVISAR SI HAY GANADOR */
+    const newWinner = checkWinner(newBoard) 
+    if (newWinner){
+        setWinner(newWinner)  
+    } else if (checkTide(newBoard)){
+        setWinner(false) /*empate*/ 
+    }
+``` 

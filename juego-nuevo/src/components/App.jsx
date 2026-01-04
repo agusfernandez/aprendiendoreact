@@ -45,6 +45,12 @@ function App() {
     /*si no hay ganador*/
     return null
   }
+
+  /*Chequear si hay empate */
+  const checkTide = (newBoard) => {
+    //chequear si todas las posiciones del tablero estan llenas
+    return newBoard.every( (square) => square !== null)
+  }
   
   const updateBoard = (index) => {
     if(board[index] || winner) return /*si ya hay algo en esa posicion, no hacer nada*/
@@ -62,7 +68,7 @@ function App() {
     const newWinner = checkWinner(newBoard) 
     if (newWinner){
         setWinner(newWinner)  
-    } else if (!newBoard.includes(null)){
+    } else if (checkTide(newBoard)){
         setWinner(false) /*empate*/ 
     }
   }
