@@ -1,5 +1,6 @@
 import Square from "./Square/Square"
 import { useState } from "react"
+import confetti from "canvas-confetti"
 
 const PIEZAS ={
     X : 'x',
@@ -67,6 +68,7 @@ function App() {
     /*REVISAR SI HAY GANADOR */
     const newWinner = checkWinner(newBoard) 
     if (newWinner){
+        confetti()
         setWinner(newWinner)  
     } else if (checkTide(newBoard)){
         setWinner(false) /*empate*/ 

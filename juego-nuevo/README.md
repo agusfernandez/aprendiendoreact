@@ -316,7 +316,7 @@ setWinner(null)
 
 13) Chequear si hay empate
 
-````
+```
   /*Chequear si hay empate */
   const checkTide = (newBoard) => {
     //chequear si todas las posiciones del tablero estan llenas
@@ -326,7 +326,7 @@ setWinner(null)
  ```
 
 
- ````
+ ```
  /*REVISAR SI HAY GANADOR */
     const newWinner = checkWinner(newBoard) 
     if (newWinner){
@@ -335,3 +335,10 @@ setWinner(null)
         setWinner(false) /*empate*/ 
     }
 ``` 
+
+14) si hay un winner que tire confetti
+npm install canvas-confetti -E
+
+```
+import confetti from "canvas-confetti"
+```
